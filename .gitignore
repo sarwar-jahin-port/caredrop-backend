@@ -5,3 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+/generated/prisma
+dist/
+build/
+/prisma/migrations/
+src/generated/prisma/
+copilot-instructions.md

@@ -1,6 +1,6 @@
 # CareDrop Backend
 
-TypeScript backend starter for a multi-vendor medical platform built with Node.js, Express, and PostgreSQL.
+TypeScript backend starter for a multi-vendor medical platform built with Node.js, Express, Prisma 7, and PostgreSQL.
 
 ## Getting Started
 
@@ -18,19 +18,25 @@ TypeScript backend starter for a multi-vendor medical platform built with Node.j
 
 3. Update `DATABASE_URL` in `.env`.
 
-4. Start the development server:
+4. Generate the Prisma client:
+
+   ```bash
+   npm run prisma:generate
+   ```
+
+5. Start the development server:
 
    ```bash
    npm run dev
    ```
 
-5. Build the project for production:
+6. Build the project for production:
 
    ```bash
    npm run build
    ```
 
-6. Start the compiled server:
+7. Start the compiled server:
 
    ```bash
    npm start
@@ -40,7 +46,10 @@ TypeScript backend starter for a multi-vendor medical platform built with Node.j
 
 - `src/app.ts` - Express app setup
 - `src/server.ts` - Server bootstrap
-- `src/config/db.ts` - PostgreSQL connection pool
+- `prisma.config.ts` - Prisma CLI configuration and datasource URL
+- `prisma/schema.prisma` - Prisma data model and generator setup
+- `src/config/prisma.ts` - Prisma client singleton with PostgreSQL adapter
+- `src/generated/prisma` - Generated Prisma Client output
 - `src/modules/medicine` - Medicine feature module
 - `src/modules/order` - Order feature module
 - `src/middleware` - Shared middleware
