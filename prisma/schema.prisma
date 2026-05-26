@@ -20,6 +20,7 @@ model User {
   sellerProfile   SellerProfile?
   sessions        Session[]
   accounts        Account[]
+  updateRequests  UpdateRequest[]
 
   @@map("user")
 }
@@ -40,20 +41,20 @@ model Session {
 }
 
 model Account {
-  id                   String   @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
-  accountId            String
-  providerId           String
-  userId               String   @db.Uuid
-  accessToken          String?
-  refreshToken         String?
-  idToken              String?
-  accessTokenExpiresAt DateTime?
+  id                    String    @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  accountId             String
+  providerId            String
+  userId                String    @db.Uuid
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
-  scope                String?
-  password             String?
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
-  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("account")
@@ -206,4 +207,20 @@ model OrderTracking {
   order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@map("order_tracking")
+}
+
+model UpdateRequest {
+  id         String    @id @default(dbgenerated("pg_catalog.gen_random_uuid()")) @db.Uuid
+  userId     String    @db.Uuid
+  changes    Json
+  status     String    @default("PENDING")
+  reason     String?
+  reviewerId String?   @db.Uuid
+  reviewedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("update_requests")
 }

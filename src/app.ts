@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import { auth } from './auth.js';
 import { medicineRouter } from './modules/medicine/medicine.route.js';
 import { orderRouter } from './modules/order/order.route.js';
+import { userRouter } from './modules/user/user.route.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
@@ -28,6 +29,7 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/medicine', medicineRouter);
 app.use('/api/orders', orderRouter);
+app.use('/api/users', userRouter);
 
 app.use(notFound);
 app.use(errorHandler);
